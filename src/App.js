@@ -1,42 +1,36 @@
 import React, { Component } from 'react';
-import { get } from 'axios';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quoteDate: ''
+      author: '',
+      quote: ''
     };
+    this.fetchData = this.fetchData.bind(this);
   }
   componentDidMount() {
-    const url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback';
-    get(url)
-      .then(res => {
+    this.fetchData();
+  }
+
+  fetchData() {
+    const url = 'https://thesimpsonsquoteapi.glitch.me/quotes'
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
         this.setState({
-          quoteDate: res.data
+          author: data[0].character,
+          quote: data[0].quote
         })
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
       })
   }
   render() {
-    // const author = /"title":(".*")/.exec(this.state.quoteDate);
-    // const author = this.state.quoteDate.match();
-    console.log(author);
-
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h2>{this.state.author}</h2>
+        <p>{this.state.quote}</p>
+        <button onClick={this.fetchData}>Next</button>
       </div>
     );
   }
