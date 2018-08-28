@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Quote from './Quote';
 import './App.css';
 
 class App extends Component {
@@ -6,31 +7,39 @@ class App extends Component {
     super(props);
     this.state = {
       author: '',
-      quote: ''
+      quote: '',
+      fetching: false,
     };
     this.fetchData = this.fetchData.bind(this);
   }
   componentDidMount() {
     this.fetchData();
   }
-
   fetchData() {
-    const url = 'https://thesimpsonsquoteapi.glitch.me/quotes'
+    const url = 'https://thesimpsonsquoteapi.glitch.me/quotes';
+    this.setState({
+      ...this.state,
+      fetching: true
+    })
     fetch(url)
       .then(res => res.json())
       .then(data => {
         this.setState({
           author: data[0].character,
-          quote: data[0].quote
+          quote: data[0].quote,
+          fetching: false
         })
       })
   }
+
   render() {
+    // console.log(this.state.quote)
     return (
       <div className="App">
-        <h2>{this.state.author}</h2>
-        <p>{this.state.quote}</p>
-        <button onClick={this.fetchData}>Next</button>
+        {this.state.quote ?
+          <Quote fetching={this.state.fetching} text={this.state.quote} author={this.state.author} next={this.fetchData} />
+          : null
+        }
       </div>
     );
   }
