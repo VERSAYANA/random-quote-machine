@@ -33,7 +33,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state.quote)
     return (
       <div className="App">
         {this.state.quote ?
