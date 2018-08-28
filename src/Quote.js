@@ -2,7 +2,6 @@ import React from 'react';
 import './Quote.css'
 
 const Quote = ({ text, author, next, fetching }) => {
-  console.log(fetching);
   return (
     <div id="quote-box" className={fetching ? 'fetching' : ''}>
       <p id="text">{text}</p>
