@@ -17,7 +17,7 @@
 }
 .fetching {
   animation-name: go !important;
-  animation-duration: 1s !important;
+  animation-duration: .5s !important;
   animation-fill-mode: forwards;
 }
 @keyframes come {
