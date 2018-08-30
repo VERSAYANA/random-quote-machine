@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import './Quote.css'
 
 const Quote = ({ text, author, next, fetching }) => {
@@ -16,6 +17,13 @@ const Quote = ({ text, author, next, fetching }) => {
       </div>
     </div>
   )
+}
+
+Quote.propTypes = {
+  text: PropType.string,
+  author: PropType.string,
+  next: PropType.func,
+  fetching: PropType.bool
 }
 
 export default Quote;
